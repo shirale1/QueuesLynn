@@ -78,5 +78,40 @@ namespace Queues
             return copy;
 
         }
+        public static void InsertToMiddle<T>(Queue<T> q, T val)
+        {   //תרגיל 5 הכנסה של ערך לאמצע התור
+            int count = 0;
+            Queue<T> temp = Copy(q);//יצירת תור copy
+            temp = q;
+            while (!q.IsEmpty()) //ריקון התור המקורי וסכימת האיברים
+            {
+                count++;
+                q.Remove();
+            }
+            while (!temp.IsEmpty() && count <= count / 2) //מעברים חצי לתור העזר 
+            {
+                q.Insert(temp.Head());
+                temp.Remove();
+            }
+            q.Insert(val); //מכניסים את הערך לאמצע התור המקורי
+            while (!temp.IsEmpty()) //מכניסים את שאר הערכים אחרי האמצע
+            {
+                q.Insert(temp.Head());
+                temp.Remove();
+            }
+        }
+        public static int CountNoCopy(Queue<int> q) //6
+        {
+            int count = 0;
+            q.Insert(-1);
+            while ( q.Head()!= -1)
+            {
+                q.Insert(q.Remove());
+                count++;
+            }
+            q.Remove();
+            return count;
+        }
+
     }
 }
